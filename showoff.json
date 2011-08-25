@@ -1,0 +1,7 @@
+{
+  "name": "Rubyjax Games",
+  "description": "Game programming in Ruby",
+  "sections": [
+    {"section":"one"}
+  ]
+}
