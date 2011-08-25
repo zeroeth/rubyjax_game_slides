@@ -1,21 +1,19 @@
 !SLIDE title-slide
+
 # Having Fun
 # in Ruby
 
 !SLIDE bullets
-# First Slide #
 
-* blah blah
-* blah
+# Overview
 
-!SLIDE bullets
-# Next Slide #
+* Chingu gem
+* Resources
 
-* two
-* three
 
 !SLIDE
-# Third Slide #
+
+# Third Slide
     @@@ ruby
     require 'sinatra/base'
 
@@ -28,7 +26,24 @@
       end
     end	
 
-!SLIDE bullets center transition=scrollLeft
+
+!SLIDE smbullets
+
+## Resources
+
+* Sound
+  * www.bfxr.net (Random SFX Generator)
+  * www.freesound.org (Categorized sound clips)
+
+* Music
+  * www.soundcloud.com (Creative Commons)
+  * www.freemusicarchive.org (Creative Commons)
+
+* Graphics
+  * www.pixeljoint.com (8-bit artist community)
+  * www.deviantart.com (Search 'sprite', Commisions)
+
+!SLIDE bullets center transition=scrollUp
 # EOF #
 Thanks!
 
