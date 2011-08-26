@@ -1,0 +1,9 @@
+/* customr css and js files included at the top level of your presentation will
+ * will be included in your presentation */
+
+.smbullets ul ul {
+  font-size: 0.75em;
+}
+.smbullets ul ul ul {
+  font-size: 0.75em;
+}
