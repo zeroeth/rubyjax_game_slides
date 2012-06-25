@@ -76,7 +76,15 @@
 ## Sound
 
     @@@ ruby
-    Sound["blaster.wav"].play
+    class SpaceShip < Chingu::GameObject
+      def initialize
+        self.input = {:space => :pewpew}
+      end
+
+      def pewpew
+        Sound["blaster.wav"].play
+      end
+    end
 
 !SLIDE smbullets
 
@@ -98,6 +106,7 @@
              :collision_detection
     end
 
+    # in your gamestate or window
     def update
       Player.each_collision(Asteroid) do |p,a|
         p.destroy
@@ -112,8 +121,7 @@
 
     @@@ ruby
     class Level < Chingu::GameState
-      # all the normal logic
-      # for setup/update here
+      # initialize/update here
     end
 
     class Game < Chingu::Window
@@ -162,13 +170,13 @@
 
 * Graphics
   * www.pixeljoint.com (8-bit artist community)
-  * www.deviantart.com (Search 'sprite', Commisions)
+  * www.deviantart.com (Search 'sprite', Commissions)
 
 !SLIDE bullets center transition=scrollUp
 # EOF #
 Thanks!
 
 * github.com/zeroeth
-* twitter.com/kevinalford
+* @kevinalford
 * pixelflow.org
 
