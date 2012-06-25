@@ -30,9 +30,8 @@
         super
         self.input = { :escape => :exit }
 
-        @player = Player.create
       end
-      
+
       def update
         super
         self.caption = "FPS: #{self.fps}"
@@ -41,22 +40,24 @@
 
 !SLIDE
 
-## Player
+## Game Objects
 
     @@@ ruby
-    class Player < Chingu::GameObject  
+    class Player < Chingu::GameObject
       def initialize
         super
-        self.x = 200
-        self.y = 200
+        self.x, self.y = 200, 200
         self.image = Image["ship.png"]
-        self.input = {:holding_left => :move_left,
-                      :holding_right => :move_right}
+        self.input = {
+            :holding_left  => :move_left,
+            :holding_right => :move_right }
       end
 
       def move_left;  @x -= 3; end
       def move_right; @x += 3; end
     end
+
+    Player.create
 	
 !SLIDE bullets
 
@@ -65,9 +66,9 @@
     @@@ ruby
     self.input => {:holding_x => :command}
 
-    :holding_x  => :every_frame
-    :x          => :key_down
-    :released_x => :key_up
+    :holding_x  = 'every frame'
+    :x          = 'key down'
+    :released_x = 'key up'
 
 
 !SLIDE bullets
@@ -76,7 +77,7 @@
 
     @@@ ruby
     Sound["blaster.wav"].play
-  
+
 !SLIDE smbullets
 
 ## Traits (aka modules)
@@ -87,11 +88,56 @@
 * Velocity
 * Animation
 
+!SLIDE
+
+## Collision Trait
+
+    @@@ ruby
+    class Asteroid < Chingu::GameObject
+      traits :bounding_circle,
+             :collision_detection
+    end
+
+    def update
+      Player.each_collision(Asteroid) do |p,a|
+        p.destroy
+      end
+    end
+
 !SLIDE smbullets
 
 ## States
 
-* Your basic stack to manage menus, levels, pausing.
+### A stack to manage menus, levels, pausing.
+
+    @@@ ruby
+    class Level < Chingu::GameState
+      # all the normal logic
+      # for setup/update here
+    end
+
+    class Game < Chingu::Window
+      def initialize
+        push_game_state(Level)
+
+        # A built in editor!
+        push_game_state(Chingu::GameStates::Edit)
+      end
+    end
+
+
+!SLIDE
+
+## Saving/Loading
+
+    @@@ ruby
+    class Level < Chingu::GameState
+      def initialize
+        load_game_objects
+
+        self.input = {:s => :save_game_objects}
+      end
+    end
 
 
 !SLIDE
@@ -102,6 +148,9 @@
 !SLIDE smbullets
 
 ## Resources
+
+* Chingu (And some finished game links)
+  * github.com/ippa/chingu
 
 * Sound
   * www.bfxr.net (Random SFX Generator)
