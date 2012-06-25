@@ -134,7 +134,15 @@ Player.create</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="one/slidesA/7">
 <h2>Sound</h2>
 
-<pre class="sh_ruby"><code>Sound["blaster.wav"].play</code></pre></div>
+<pre class="sh_ruby"><code>class SpaceShip &lt; Chingu::GameObject
+  def initialize
+    self.input = {:space =&gt; :pewpew}
+  end
+
+  def pewpew
+    Sound["blaster.wav"].play
+  end
+end</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content smbullets" ref="one/slidesA/8">
 <h2>Traits (aka modules)</h2>
 
@@ -154,6 +162,7 @@ Player.create</code></pre></div>
          :collision_detection
 end
 
+# in your gamestate or window
 def update
   Player.each_collision(Asteroid) do |p,a|
     p.destroy
@@ -165,8 +174,7 @@ end</code></pre></div>
 <h3>A stack to manage menus, levels, pausing.</h3>
 
 <pre class="sh_ruby"><code>class Level &lt; Chingu::GameState
-  # all the normal logic
-  # for setup/update here
+  # initialize/update here
 end
 
 class Game &lt; Chingu::Window
@@ -217,7 +225,7 @@ end</code></pre></div>
 
 <ul>
 <li>www.pixeljoint.com (8-bit artist community)</li>
-<li>www.deviantart.com (Search 'sprite', Commisions)</li>
+<li>www.deviantart.com (Search 'sprite', Commissions)</li>
 </ul>
 </li>
 </ul>
@@ -229,7 +237,7 @@ end</code></pre></div>
 
 <ul>
 <li>github.com/zeroeth</li>
-<li>twitter.com/kevinalford</li>
+<li>@kevinalford</li>
 <li>pixelflow.org</li>
 </ul>
 </div>
