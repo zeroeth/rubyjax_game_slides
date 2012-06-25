@@ -98,7 +98,6 @@ Chingu::GameObject</code></pre></div>
     super
     self.input = { :escape =&gt; :exit }
 
-    @player = Player.create
   end
 
   def update
@@ -107,29 +106,31 @@ Chingu::GameObject</code></pre></div>
   end
 end</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content" ref="one/slidesA/5">
-<h2>Player</h2>
+<h2>Game Objects</h2>
 
-<pre class="sh_ruby"><code>class Player &lt; Chingu::GameObject  
+<pre class="sh_ruby"><code>class Player &lt; Chingu::GameObject
   def initialize
     super
-    self.x = 200
-    self.y = 200
+    self.x, self.y = 200, 200
     self.image = Image["ship.png"]
-    self.input = {:holding_left =&gt; :move_left,
-                  :holding_right =&gt; :move_right}
+    self.input = {
+        :holding_left  =&gt; :move_left,
+        :holding_right =&gt; :move_right }
   end
 
   def move_left;  @x -= 3; end
   def move_right; @x += 3; end
-end</code></pre></div>
+end
+
+Player.create</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="one/slidesA/6">
 <h2>Input</h2>
 
 <pre class="sh_ruby"><code>self.input =&gt; {:holding_x =&gt; :command}
 
-:holding_x  =&gt; :every_frame
-:x          =&gt; :key_down
-:released_x =&gt; :key_up</code></pre></div>
+:holding_x  = 'every frame'
+:x          = 'key down'
+:released_x = 'key up'</code></pre></div>
 </div><div class="slide" data-transition="none"><div class="content bullets" ref="one/slidesA/7">
 <h2>Sound</h2>
 
@@ -145,19 +146,59 @@ end</code></pre></div>
 <li>Animation</li>
 </ul>
 </div>
-</div><div class="slide" data-transition="none"><div class="content smbullets" ref="one/slidesA/9">
+</div><div class="slide" data-transition="none"><div class="content" ref="one/slidesA/9">
+<h2>Collision Trait</h2>
+
+<pre class="sh_ruby"><code>class Asteroid &lt; Chingu::GameObject
+  traits :bounding_circle,
+         :collision_detection
+end
+
+def update
+  Player.each_collision(Asteroid) do |p,a|
+    p.destroy
+  end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content smbullets" ref="one/slidesA/10">
 <h2>States</h2>
 
-<ul>
-<li>Your basic stack to manage menus, levels, pausing.</li>
-</ul>
-</div>
-</div><div class="slide" data-transition="none"><div class="content" ref="one/slidesA/10">
+<h3>A stack to manage menus, levels, pausing.</h3>
+
+<pre class="sh_ruby"><code>class Level &lt; Chingu::GameState
+  # all the normal logic
+  # for setup/update here
+end
+
+class Game &lt; Chingu::Window
+  def initialize
+    push_game_state(Level)
+
+    # A built in editor!
+    push_game_state(Chingu::GameStates::Edit)
+  end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/slidesA/11">
+<h2>Saving/Loading</h2>
+
+<pre class="sh_ruby"><code>class Level &lt; Chingu::GameState
+  def initialize
+    load_game_objects
+
+    self.input = {:s =&gt; :save_game_objects}
+  end
+end</code></pre></div>
+</div><div class="slide" data-transition="none"><div class="content" ref="one/slidesA/12">
 <h2>Put it all together!</h2></div>
-</div><div class="slide" data-transition="none"><div class="content smbullets" ref="one/slidesA/11">
+</div><div class="slide" data-transition="none"><div class="content smbullets" ref="one/slidesA/13">
 <h2>Resources</h2>
 
 <ul>
+<li><p>Chingu (And some finished game links)</p>
+
+<ul>
+<li>github.com/ippa/chingu</li>
+</ul>
+</li>
 <li><p>Sound</p>
 
 <ul>
@@ -181,7 +222,7 @@ end</code></pre></div>
 </li>
 </ul>
 </div>
-</div><div class="slide" data-transition="scrollUp"><div class="content bullets center" ref="one/slidesA/12">
+</div><div class="slide" data-transition="scrollUp"><div class="content bullets center" ref="one/slidesA/14">
 <h1>EOF</h1>
 
 <p>Thanks!</p>
