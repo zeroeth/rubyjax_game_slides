@@ -159,6 +159,7 @@
 
 * Chingu (And some finished game links)
   * github.com/ippa/chingu
+  * github.com/jlnr/gosu/blob/master/examples/ChipmunkIntegration.rb
 
 * Sound
   * www.bfxr.net (Random SFX Generator)
